@@ -10,6 +10,12 @@ workspace "Vizual"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+includedir = {}
+includedir["GLFW"] = "VizualEngine/vendor/GLFW/include"
+includedir["spdlog"] = "VizualEngine/vendor/spdlog/include"
+
+include "VizualEngine/vendor/GLFW"
+
 project "VizualEngine"
 	location "VizualEngine"
 	kind "sharedlib"
@@ -21,17 +27,28 @@ project "VizualEngine"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "pch.h"
+	pchsource "Vizual/src/pch.cpp"
+
 	files 
 	{
 		"%{prj.name}/src/**.c",
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.hpp",
-		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/src/**.cpp"
 	}
 
 	includedirs 
 	{
-		"%{prj.name}/vendor/spdlog/include/"
+		"%{prj.name}/src/",
+		"%{includedir.GLFW}",
+		"%{includedir.spdlog}",
+	}
+
+	links 
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -74,7 +91,6 @@ project "VizualEditor"
    	filter "action:vs*"
       		buildoptions { "/utf-8" }
 
-
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -88,7 +104,8 @@ project "VizualEditor"
 
 	includedirs
 	{
-		"VizualEngine/vendor/spdlog/include/",
+		"%{includedir.GLFW}",
+		"%{includedir.spdlog}",
 		"VizualEngine/src"
 	}
 

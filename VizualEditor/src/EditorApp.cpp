@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <Vizual.h>
 
 class EditorApp : public Vizual::Application {

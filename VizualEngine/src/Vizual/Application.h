@@ -2,7 +2,7 @@
 #include "Core.h"
 
 namespace Vizual {
-	class VIZUAL_API Application {
+	class VZ_API Application {
 	public:
 		Application();
 		virtual ~Application();

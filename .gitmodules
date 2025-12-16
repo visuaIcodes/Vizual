@@ -1,0 +1,3 @@
+[submodule "VizualEngine/vendor/spdlog"]
+	path = VizualEngine/vendor/spdlog
+	url = https://github.com/gabime/spdlog

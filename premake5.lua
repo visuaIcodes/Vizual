@@ -15,6 +15,9 @@ project "VizualEngine"
 	kind "sharedlib"
 	language "C++"
 
+   	filter "action:vs*"
+      		buildoptions { "/utf-8" }
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -28,7 +31,7 @@ project "VizualEngine"
 
 	includedirs 
 	{
-		"%{prj.name}/vendor/"
+		"%{prj.name}/vendor/spdlog/include/"
 	}
 
 	filter "system:windows"
@@ -68,6 +71,10 @@ project "VizualEditor"
 	kind "ConsoleApp"
 		language "C++"
 
+   	filter "action:vs*"
+      		buildoptions { "/utf-8" }
+
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -81,7 +88,7 @@ project "VizualEditor"
 
 	includedirs
 	{
-		"%{prj.name}/vendor/",
+		"VizualEngine/vendor/spdlog/include/",
 		"VizualEngine/src"
 	}
 
@@ -108,7 +115,7 @@ project "VizualEditor"
 		defines 
 		{
 			"VZ_PLATFORM_WINDOWS",
-			"VZ_BUILD_DLL"
+			"VZ_IMPORT_DLL"
 		}
 
 	filter "configurations:Debug"
